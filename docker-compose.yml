@@ -1,0 +1,49 @@
+services:
+
+  # ── Primary pipeline service ─────────────────────────────────────────────
+  tracker:
+    build:
+      context: .
+      target: runtime
+    image: ph-price-tracker:latest
+    volumes:
+      - ./data:/app/data
+    environment:
+      - TRACKER_DB_PATH=/app/data/prices.duckdb
+      - TRACKER_MAX_PAGES_PER_KEYWORD=3
+    command: run
+
+  # ── Status check (run with: docker compose --profile status up tracker-status)
+  tracker-status:
+    build:
+      context: .
+      target: runtime
+    image: ph-price-tracker:latest
+    volumes:
+      - ./data:/app/data
+    environment:
+      - TRACKER_DB_PATH=/app/data/prices.duckdb
+    command: status
+    profiles: ["status"]
+
+  # ── PostgreSQL — CI and integration testing only ──────────────────────────
+  # Start with: docker compose --profile ci up postgres
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: tracker
+      POSTGRES_PASSWORD: tracker
+      POSTGRES_DB: tracker
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U tracker -d tracker"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    profiles: ["ci", "postgres"]
+
+volumes:
+  pg_data:
