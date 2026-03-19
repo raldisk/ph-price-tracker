@@ -69,7 +69,7 @@ AbstractWarehouseLoader   ← callers depend only on this
 get_loader(backend="duckdb" | "postgresql")  ← factory
 ```
 
-Backend is selected via the `TRACKER_BACKEND` environment variable. The default is `duckdb`. No code changes are required to run against PostgreSQL — only the env var changes.
+Backend is selected via the `TRACKER_DB_BACKEND` environment variable. The default is `duckdb`. No code changes are required to run against PostgreSQL — only the env var changes.
 
 ---
 
@@ -118,14 +118,71 @@ uv run price-tracker run --keyword laptop --keyword "gaming chair"
 **Run against PostgreSQL backend:**
 
 ```bash
-TRACKER_BACKEND=postgresql \
+TRACKER_DB_BACKEND=postgresql \
 TRACKER_POSTGRES_DSN=postgresql://tracker:tracker@localhost:5432/tracker \
 uv run price-tracker run
 ```
 
 ---
 
-## Project Structure
+## How to Use
+
+### Step 1 — Let it run automatically
+
+The pipeline runs every day at 16:00 PHT via GitHub Actions with no action required from you. Each run scrapes Lazada PH, loads new price snapshots into DuckDB, and refreshes all dbt marts.
+
+### Step 2 — Run it manually
+
+```bash
+# Full pipeline — scrape → load → transform
+uv run price-tracker run
+
+# Scrape specific products only
+uv run price-tracker run --keyword laptop --keyword headphones
+
+# Skip the scrape — just re-run dbt transforms on existing data
+uv run price-tracker transform
+
+# Check how much data is in the warehouse
+uv run price-tracker status
+```
+
+### Step 3 — Query the marts directly
+
+Open the DuckDB warehouse at `data/prices.duckdb` with any SQL client (DuckDB CLI, DBeaver, Harlequin) and query the marts directly:
+
+```sql
+-- What dropped in price today?
+SELECT product_name, prev_price, current_price, price_change_pct, item_url
+FROM marts.price_movers
+WHERE snapshot_date = current_date
+  AND price_direction = 'decreased'
+ORDER BY price_change_pct ASC
+LIMIT 10;
+
+-- What are today's best deals?
+SELECT deal_rank, product_name, category, current_price, discount_pct, is_fresh_drop
+FROM marts.daily_deals
+WHERE snapshot_date = current_date
+ORDER BY deal_rank;
+
+-- Which category is getting cheaper over time?
+SELECT snapshot_date, category, avg_price, median_price
+FROM marts.category_summary
+ORDER BY snapshot_date DESC, category;
+```
+
+### Step 4 — Customise what gets tracked
+
+Edit `TRACKER_KEYWORDS` in your `.env` file to track different products:
+
+```env
+TRACKER_KEYWORDS=["gaming laptop","mechanical keyboard","4k monitor","airpods"]
+```
+
+Then run `uv run price-tracker run` to scrape the new keywords immediately.
+
+
 
 ```
 ph-price-tracker/
@@ -206,7 +263,7 @@ All settings are environment-variable driven (prefix: `TRACKER_`). Every value h
 
 | Variable | Default | Description |
 |---|---|---|
-| `TRACKER_BACKEND` | `duckdb` | Warehouse backend: `duckdb` or `postgresql` |
+| `TRACKER_DB_BACKEND` | `duckdb` | Warehouse backend: `duckdb` or `postgresql` |
 | `TRACKER_DB_PATH` | `data/prices.duckdb` | DuckDB file location |
 | `TRACKER_POSTGRES_DSN` | `postgresql://tracker:tracker@localhost:5432/tracker` | PostgreSQL DSN (CI only) |
 | `TRACKER_MAX_PAGES_PER_KEYWORD` | `3` | Pages scraped per keyword (~50 items/page) |
