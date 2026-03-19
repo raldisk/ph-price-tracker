@@ -1,0 +1,53 @@
+# ── Python ───────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+ENV/
+
+# ── uv ────────────────────────────────────────────────────────────────────────
+# Uncomment to commit the lockfile (recommended for reproducibility):
+# !uv.lock
+.uv/
+
+# ── Testing & coverage ────────────────────────────────────────────────────────
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# ── dbt ───────────────────────────────────────────────────────────────────────
+transforms/target/
+transforms/dbt_packages/
+transforms/logs/
+transforms/.user.yml
+
+# ── DuckDB — NEVER commit warehouse data ─────────────────────────────────────
+data/
+*.duckdb
+*.duckdb.wal
+
+# ── Environment ───────────────────────────────────────────────────────────────
+.env
+.env.local
+.env.*.local
+
+# ── IDE ───────────────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# ── Logs ─────────────────────────────────────────────────────────────────────
+*.log
+logs/
