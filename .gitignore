@@ -13,8 +13,8 @@ venv/
 ENV/
 
 # ── uv ────────────────────────────────────────────────────────────────────────
-# Uncomment to commit the lockfile (recommended for reproducibility):
-# !uv.lock
+# uv.lock is NOT committed — CI generates it fresh via `uv sync`
+uv.lock
 .uv/
 
 # ── Testing & coverage ────────────────────────────────────────────────────────
