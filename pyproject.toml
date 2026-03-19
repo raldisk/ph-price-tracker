@@ -1,0 +1,71 @@
+[project]
+name = "ph-price-tracker"
+version = "0.2.0"
+description = "End-to-end e-commerce price tracking pipeline for Philippine markets (Lazada PH)"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+
+dependencies = [
+    "httpx>=0.27.0",
+    "pydantic>=2.7.0",
+    "pydantic-settings>=2.3.0",
+    "duckdb>=1.0.0",
+    "polars>=0.20.0",
+    "rich>=13.7.0",
+    "tenacity>=8.3.0",
+    "python-dotenv>=1.0.0",
+    "dbt-duckdb>=1.8.0",
+    "dbt-postgres>=1.8.0",
+    "beautifulsoup4>=4.12.0",
+    "lxml>=5.2.0",
+    "typer>=0.12.0",
+    "psycopg2-binary>=2.9.9",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.2.0",
+    "pytest-asyncio>=0.23.0",
+    "respx>=0.21.0",
+    "ruff>=0.4.0",
+    "mypy>=1.10.0",
+    "coverage[toml]>=7.5.0",
+    "pytest-cov>=5.0.0",
+]
+
+[project.scripts]
+price-tracker = "price_tracker.pipeline:app"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/price_tracker"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py311"
+src = ["src"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W", "UP", "B", "SIM"]
+ignore = ["E501"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+addopts = "--cov=price_tracker --cov-report=term-missing --cov-report=xml"
+markers = [
+    "postgres: marks tests that require a live PostgreSQL server (skip with -m 'not postgres')",
+]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+mypy_path = "src"
+
+[tool.coverage.run]
+source = ["src/price_tracker"]
+omit = ["tests/*"]
