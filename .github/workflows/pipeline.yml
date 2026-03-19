@@ -1,0 +1,83 @@
+name: Scheduled Pipeline
+
+on:
+  schedule:
+    # Run every day at 08:00 UTC (16:00 PHT)
+    - cron: "0 8 * * *"
+  workflow_dispatch:
+    inputs:
+      keywords:
+        description: "Comma-separated keywords to scrape (leave blank for config defaults)"
+        required: false
+        default: ""
+      skip_dbt:
+        description: "Skip dbt transforms"
+        required: false
+        default: "false"
+        type: choice
+        options: ["false", "true"]
+
+jobs:
+  pipeline:
+    name: Scrape → Load → Transform
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - uses: astral-sh/setup-uv@v4
+        with:
+          enable-cache: true
+
+      - run: uv sync
+
+      - name: Restore DuckDB warehouse from cache
+        id: cache-db
+        uses: actions/cache@v4
+        with:
+          path: data/prices.duckdb
+          key: duckdb-${{ runner.os }}-${{ github.run_id }}
+          restore-keys: |
+            duckdb-${{ runner.os }}-
+
+      - name: Run pipeline
+        env:
+          TRACKER_DB_PATH: data/prices.duckdb
+        run: |
+          KEYWORDS="${{ github.event.inputs.keywords }}"
+          SKIP_DBT="${{ github.event.inputs.skip_dbt }}"
+          CMD="uv run price-tracker run"
+
+          if [ -n "$KEYWORDS" ]; then
+            for kw in $(echo "$KEYWORDS" | tr ',' '\n'); do
+              CMD="$CMD --keyword $kw"
+            done
+          fi
+
+          if [ "$SKIP_DBT" = "true" ]; then
+            CMD="$CMD --skip-dbt"
+          fi
+
+          $CMD
+
+      - name: Print warehouse status
+        env:
+          TRACKER_DB_PATH: data/prices.duckdb
+        run: uv run price-tracker status
+
+      - name: Save DuckDB to cache
+        uses: actions/cache@v4
+        with:
+          path: data/prices.duckdb
+          key: duckdb-${{ runner.os }}-${{ github.run_id }}
+
+      - name: Upload DuckDB as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: prices-duckdb-${{ github.run_id }}
+          path: data/prices.duckdb
+          retention-days: 30
