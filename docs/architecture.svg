@@ -1,0 +1,191 @@
+<svg viewBox="0 0 900 620" xmlns="http://www.w3.org/2000/svg" font-family="ui-monospace, 'Cascadia Code', 'Fira Code', monospace">
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0d1117"/>
+      <stop offset="100%" stop-color="#161b22"/>
+    </linearGradient>
+    <linearGradient id="cronGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1f2d3d"/>
+      <stop offset="100%" stop-color="#172030"/>
+    </linearGradient>
+    <linearGradient id="ingestGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1a2332"/>
+      <stop offset="100%" stop-color="#12243a"/>
+    </linearGradient>
+    <linearGradient id="storeGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1a2420"/>
+      <stop offset="100%" stop-color="#102a1e"/>
+    </linearGradient>
+    <linearGradient id="transformGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#2a1f10"/>
+      <stop offset="100%" stop-color="#1e1508"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#4a9eff" opacity="0.8"/>
+    </marker>
+    <marker id="arrowGreen" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#3fb950" opacity="0.8"/>
+    </marker>
+    <marker id="arrowOrange" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#f78166" opacity="0.8"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="620" fill="url(#bgGrad)" rx="12"/>
+  <rect width="900" height="620" fill="none" stroke="#30363d" stroke-width="1" rx="12"/>
+
+  <!-- Title -->
+  <text x="450" y="34" text-anchor="middle" fill="#e6edf3" font-size="14" font-weight="700" letter-spacing="1">ph-price-tracker · Pipeline Architecture</text>
+  <text x="450" y="52" text-anchor="middle" fill="#7d8590" font-size="10">v0.2.0 · DuckDB primary · PostgreSQL CI · dbt-duckdb · GitHub Actions</text>
+  <line x1="40" y1="62" x2="860" y2="62" stroke="#21262d" stroke-width="1"/>
+
+  <!-- ── CRON TRIGGER ──────────────────────────────────── -->
+  <rect x="220" y="76" width="460" height="52" rx="8" fill="url(#cronGrad)" stroke="#3d4a5c" stroke-width="1"/>
+  <text x="450" y="97" text-anchor="middle" fill="#79c0ff" font-size="11" font-weight="600">⏱ GitHub Actions · Scheduled Pipeline</text>
+  <text x="450" y="114" text-anchor="middle" fill="#7d8590" font-size="10">pipeline.yml · cron 0 8 * * * (08:00 UTC / 16:00 PHT) · workflow_dispatch</text>
+
+  <!-- arrow cron → ingest -->
+  <line x1="450" y1="128" x2="450" y2="148" stroke="#4a9eff" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrow)"/>
+
+  <!-- ── INGESTION LAYER ────────────────────────────────── -->
+  <rect x="40" y="152" width="820" height="148" rx="8" fill="url(#ingestGrad)" stroke="#264f78" stroke-width="1.2"/>
+  <text x="60" y="172" fill="#79c0ff" font-size="11" font-weight="700">INGESTION LAYER</text>
+
+  <!-- scraper.py box -->
+  <rect x="56" y="182" width="230" height="104" rx="6" fill="#0d1b2e" stroke="#1f4068" stroke-width="1"/>
+  <text x="171" y="199" text-anchor="middle" fill="#58a6ff" font-size="10" font-weight="600">scraper.py</text>
+  <text x="68" y="215" fill="#8b949e" font-size="9">LazadaScraper (async context mgr)</text>
+  <text x="68" y="229" fill="#7d8590" font-size="9">├─ httpx.AsyncClient</text>
+  <text x="68" y="243" fill="#7d8590" font-size="9">├─ tenacity retry (exp. backoff)</text>
+  <text x="68" y="257" fill="#7d8590" font-size="9">├─ user-agent rotation</text>
+  <text x="68" y="271" fill="#7d8590" font-size="9">└─ Lazada PH catalog JSON API</text>
+
+  <!-- models.py box -->
+  <rect x="306" y="182" width="230" height="104" rx="6" fill="#0d1b2e" stroke="#1f4068" stroke-width="1"/>
+  <text x="421" y="199" text-anchor="middle" fill="#58a6ff" font-size="10" font-weight="600">models.py</text>
+  <text x="318" y="215" fill="#8b949e" font-size="9">Pydantic v2 domain models</text>
+  <text x="318" y="229" fill="#7d8590" font-size="9">├─ RawPriceRecord  (loose types)</text>
+  <text x="318" y="243" fill="#7d8590" font-size="9">├─ PriceRecord     (validated)</text>
+  <text x="318" y="257" fill="#7d8590" font-size="9">│   ├─ currency parse  ₱1,299</text>
+  <text x="318" y="271" fill="#7d8590" font-size="9">│   └─ discount_pct  computed</text>
+
+  <!-- config.py box -->
+  <rect x="556" y="182" width="248" height="104" rx="6" fill="#0d1b2e" stroke="#1f4068" stroke-width="1"/>
+  <text x="680" y="199" text-anchor="middle" fill="#58a6ff" font-size="10" font-weight="600">config.py</text>
+  <text x="568" y="215" fill="#8b949e" font-size="9">Pydantic BaseSettings · TRACKER_ prefix</text>
+  <text x="568" y="229" fill="#7d8590" font-size="9">├─ db_backend  duckdb | postgresql</text>
+  <text x="568" y="243" fill="#7d8590" font-size="9">├─ db_path     data/prices.duckdb</text>
+  <text x="568" y="257" fill="#7d8590" font-size="9">├─ postgres_dsn  CI connection string</text>
+  <text x="568" y="271" fill="#7d8590" font-size="9">└─ keywords, rate limits, timeouts</text>
+
+  <!-- arrows between ingestion boxes -->
+  <line x1="286" y1="234" x2="306" y2="234" stroke="#4a9eff" stroke-width="1" marker-end="url(#arrow)"/>
+  <line x1="536" y1="234" x2="556" y2="234" stroke="#4a9eff" stroke-width="1" marker-end="url(#arrow)"/>
+
+  <!-- arrow ingest → storage -->
+  <line x1="450" y1="300" x2="450" y2="320" stroke="#3fb950" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrowGreen)"/>
+  <text x="460" y="313" fill="#7d8590" font-size="9">list[PriceRecord]</text>
+
+  <!-- ── STORAGE LAYER ──────────────────────────────────── -->
+  <rect x="40" y="324" width="820" height="108" rx="8" fill="url(#storeGrad)" stroke="#1a4d35" stroke-width="1.2"/>
+  <text x="60" y="344" fill="#3fb950" font-size="11" font-weight="700">STORAGE LAYER</text>
+
+  <!-- loader.py -->
+  <rect x="56" y="352" width="280" height="66" rx="6" fill="#0a1f14" stroke="#1b4332" stroke-width="1"/>
+  <text x="196" y="368" text-anchor="middle" fill="#3fb950" font-size="10" font-weight="600">loader.py  ·  dual-backend factory</text>
+  <text x="68" y="383" fill="#7d8590" font-size="9">AbstractWarehouseLoader  (interface)</text>
+  <text x="68" y="397" fill="#7d8590" font-size="9">├─ DuckDBLoader     primary · OLAP · embedded</text>
+  <text x="68" y="411" fill="#7d8590" font-size="9">└─ PostgreSQLLoader CI only · psycopg2</text>
+
+  <!-- DuckDB warehouse -->
+  <rect x="360" y="352" width="192" height="66" rx="6" fill="#0a1f14" stroke="#1b4332" stroke-width="1"/>
+  <text x="456" y="368" text-anchor="middle" fill="#3fb950" font-size="10" font-weight="600">🦆 DuckDB</text>
+  <text x="372" y="384" fill="#7d8590" font-size="9">raw.price_snapshots</text>
+  <text x="372" y="398" fill="#7d8590" font-size="9">append-only time-series</text>
+  <text x="372" y="412" fill="#7d8590" font-size="9">columnar · OLAP-optimised</text>
+
+  <!-- PostgreSQL (CI) -->
+  <rect x="572" y="352" width="232" height="66" rx="6" fill="#0a1f14" stroke="#264d3b" stroke-dasharray="5,3" stroke-width="1"/>
+  <text x="688" y="368" text-anchor="middle" fill="#56d364" font-size="10" font-weight="600">🐘 PostgreSQL  (CI only)</text>
+  <text x="584" y="384" fill="#7d8590" font-size="9">raw.price_snapshots  (same schema)</text>
+  <text x="584" y="398" fill="#7d8590" font-size="9">validates SQL portability</text>
+  <text x="584" y="412" fill="#7d8590" font-size="9">GitHub Actions  postgres:16-alpine</text>
+
+  <!-- loader → duckdb arrow -->
+  <line x1="336" y1="385" x2="360" y2="385" stroke="#3fb950" stroke-width="1" marker-end="url(#arrowGreen)"/>
+  <!-- loader → pg arrow (dashed) -->
+  <line x1="336" y1="400" x2="572" y2="400" stroke="#56d364" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#arrowGreen)"/>
+
+  <!-- arrow storage → transform -->
+  <line x1="450" y1="432" x2="450" y2="450" stroke="#f78166" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrowOrange)"/>
+  <text x="460" y="445" fill="#7d8590" font-size="9">SQL via dbt</text>
+
+  <!-- ── TRANSFORM LAYER ────────────────────────────────── -->
+  <rect x="40" y="454" width="820" height="136" rx="8" fill="url(#transformGrad)" stroke="#5c3a1e" stroke-width="1.2"/>
+  <text x="60" y="474" fill="#f0883e" font-size="11" font-weight="700">TRANSFORMATION LAYER  ·  dbt-duckdb</text>
+
+  <!-- staging -->
+  <rect x="56" y="482" width="164" height="96" rx="6" fill="#1a0e00" stroke="#5c3a1e" stroke-width="1"/>
+  <text x="138" y="498" text-anchor="middle" fill="#f0883e" font-size="10" font-weight="600">staging/</text>
+  <text x="68" y="513" fill="#7d8590" font-size="9">stg_prices</text>
+  <text x="68" y="527" fill="#6e7681" font-size="8.5">├─ null filter</text>
+  <text x="68" y="540" fill="#6e7681" font-size="8.5">├─ string trim</text>
+  <text x="68" y="553" fill="#6e7681" font-size="8.5">├─ price_tier derive</text>
+  <text x="68" y="566" fill="#6e7681" font-size="8.5">└─ view</text>
+
+  <!-- mart boxes -->
+  <rect x="240" y="482" width="148" height="96" rx="6" fill="#1a0e00" stroke="#5c3a1e" stroke-width="1"/>
+  <text x="314" y="498" text-anchor="middle" fill="#f0883e" font-size="10" font-weight="600">price_history</text>
+  <text x="252" y="513" fill="#7d8590" font-size="9">table · all items</text>
+  <text x="252" y="527" fill="#6e7681" font-size="8.5">LAG() price change</text>
+  <text x="252" y="541" fill="#6e7681" font-size="8.5">price_direction</text>
+  <text x="252" y="555" fill="#6e7681" font-size="8.5">price_change_pct</text>
+
+  <rect x="400" y="482" width="148" height="96" rx="6" fill="#1a0e00" stroke="#5c3a1e" stroke-width="1"/>
+  <text x="474" y="498" text-anchor="middle" fill="#f0883e" font-size="10" font-weight="600">price_movers</text>
+  <text x="412" y="513" fill="#7d8590" font-size="9">table · per day</text>
+  <text x="412" y="527" fill="#6e7681" font-size="8.5">top-20 drops/spikes</text>
+  <text x="412" y="541" fill="#6e7681" font-size="8.5">RANK() per direction</text>
+  <text x="412" y="555" fill="#6e7681" font-size="8.5">abs(price_change)</text>
+
+  <rect x="560" y="482" width="148" height="96" rx="6" fill="#1a0e00" stroke="#5c3a1e" stroke-width="1"/>
+  <text x="634" y="498" text-anchor="middle" fill="#f0883e" font-size="10" font-weight="600">category_summary</text>
+  <text x="572" y="513" fill="#7d8590" font-size="9">table · per category</text>
+  <text x="572" y="527" fill="#6e7681" font-size="8.5">avg / {{ median() }}</text>
+  <text x="572" y="541" fill="#6e7681" font-size="8.5">min / max price</text>
+  <text x="572" y="555" fill="#6e7681" font-size="8.5">DuckDB + PG portable</text>
+
+  <rect x="720" y="482" width="128" height="96" rx="6" fill="#1f1000" stroke="#7a4a1e" stroke-width="1.5"/>
+  <text x="784" y="498" text-anchor="middle" fill="#ffa657" font-size="10" font-weight="700">daily_deals ✨</text>
+  <text x="732" y="513" fill="#7d8590" font-size="9">table · NEW</text>
+  <text x="732" y="527" fill="#6e7681" font-size="8.5">≥30% off + ≥50 reviews</text>
+  <text x="732" y="541" fill="#6e7681" font-size="8.5">top-10 per day</text>
+  <text x="732" y="555" fill="#6e7681" font-size="8.5">is_fresh_drop flag</text>
+
+  <!-- staging → mart arrows -->
+  <line x1="220" y1="530" x2="240" y2="530" stroke="#f0883e" stroke-width="1" marker-end="url(#arrowOrange)"/>
+  <line x1="220" y1="530" x2="400" y2="530" stroke="#f0883e" stroke-width="0.8" opacity="0.5"/>
+  <line x1="400" y1="530" x2="400" y2="530" stroke="#f0883e" stroke-width="1" marker-end="url(#arrowOrange)"/>
+  <line x1="220" y1="530" x2="560" y2="530" stroke="#f0883e" stroke-width="0.8" opacity="0.5"/>
+  <line x1="560" y1="530" x2="560" y2="530" stroke="#f0883e" stroke-width="1" marker-end="url(#arrowOrange)"/>
+  <line x1="220" y1="530" x2="720" y2="530" stroke="#ffa657" stroke-width="0.8" opacity="0.5"/>
+  <line x1="720" y1="530" x2="720" y2="530" stroke="#ffa657" stroke-width="1" marker-end="url(#arrowOrange)"/>
+
+  <!-- Bottom legend -->
+  <line x1="40" y1="600" x2="860" y2="600" stroke="#21262d" stroke-width="1"/>
+  <circle cx="64" cy="612" r="4" fill="#4a9eff"/>
+  <text x="74" y="616" fill="#7d8590" font-size="9">scheduled trigger</text>
+  <circle cx="200" cy="612" r="4" fill="#3fb950"/>
+  <text x="210" y="616" fill="#7d8590" font-size="9">data flow</text>
+  <circle cx="290" cy="612" r="4" fill="#f0883e"/>
+  <text x="300" y="616" fill="#7d8590" font-size="9">SQL transform</text>
+  <rect x="390" y="607" width="10" height="8" rx="1" fill="none" stroke="#56d364" stroke-dasharray="3,2" stroke-width="1"/>
+  <text x="406" y="616" fill="#7d8590" font-size="9">CI only (PostgreSQL)</text>
+  <rect x="535" y="607" width="10" height="8" rx="2" fill="#1f1000" stroke="#7a4a1e" stroke-width="1.5"/>
+  <text x="551" y="616" fill="#ffa657" font-size="9">new in v0.2.0</text>
+</svg>

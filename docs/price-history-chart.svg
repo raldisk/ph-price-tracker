@@ -1,0 +1,180 @@
+<svg viewBox="0 0 860 380" xmlns="http://www.w3.org/2000/svg" font-family="ui-monospace, 'Cascadia Code', 'Fira Code', monospace">
+  <defs>
+    <linearGradient id="chartBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0d1117"/>
+      <stop offset="100%" stop-color="#161b22"/>
+    </linearGradient>
+    <linearGradient id="lineGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1f6feb"/>
+      <stop offset="60%" stop-color="#58a6ff"/>
+      <stop offset="100%" stop-color="#3fb950"/>
+    </linearGradient>
+    <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1f6feb" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#1f6feb" stop-opacity="0.02"/>
+    </linearGradient>
+    <filter id="dotGlow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <rect width="860" height="380" fill="url(#chartBg)" rx="12"/>
+  <rect width="860" height="380" fill="none" stroke="#30363d" stroke-width="1" rx="12"/>
+
+  <!-- Header -->
+  <text x="430" y="26" text-anchor="middle" fill="#e6edf3" font-size="12" font-weight="700">Price History · Logitech MX Keys Advanced Keyboard</text>
+  <text x="430" y="42" text-anchor="middle" fill="#7d8590" font-size="9">marts.price_history · item_id: ITEM08831 · keyword: mechanical keyboard · 14-day window</text>
+  <line x1="40" y1="52" x2="820" y2="52" stroke="#21262d" stroke-width="1"/>
+
+  <!-- Legend -->
+  <line x1="530" y1="42" x2="550" y2="42" stroke="url(#lineGrad)" stroke-width="2"/>
+  <circle cx="540" cy="42" r="3" fill="#58a6ff"/>
+  <text x="555" y="46" fill="#8b949e" font-size="8.5">current_price</text>
+  <circle cx="640" cy="42" r="4" fill="#f85149" filter="url(#dotGlow)"/>
+  <text x="649" y="46" fill="#8b949e" font-size="8.5">price drop (LAG detected)</text>
+  <circle cx="762" cy="42" r="4" fill="#3fb950" filter="url(#dotGlow)"/>
+  <text x="771" y="46" fill="#8b949e" font-size="8.5">new low</text>
+
+  <!-- ── CHART AREA ─────────────────────────────────────── -->
+  <!-- Y axis -->
+  <line x1="80" y1="68" x2="80" y2="290" stroke="#30363d" stroke-width="1"/>
+  <!-- X axis -->
+  <line x1="80" y1="290" x2="820" y2="290" stroke="#30363d" stroke-width="1"/>
+
+  <!-- Grid lines (horizontal) -->
+  <line x1="80" y1="105" x2="820" y2="105" stroke="#161b22" stroke-width="1"/>
+  <line x1="80" y1="143" x2="820" y2="143" stroke="#161b22" stroke-width="1"/>
+  <line x1="80" y1="181" x2="820" y2="181" stroke="#161b22" stroke-width="1"/>
+  <line x1="80" y1="219" x2="820" y2="219" stroke="#161b22" stroke-width="1"/>
+  <line x1="80" y1="257" x2="820" y2="257" stroke="#161b22" stroke-width="1"/>
+
+  <!-- Y axis labels (PHP) -->
+  <text x="72" y="108" text-anchor="end" fill="#6e7681" font-size="8">₱9,000</text>
+  <text x="72" y="146" text-anchor="end" fill="#6e7681" font-size="8">₱8,000</text>
+  <text x="72" y="184" text-anchor="end" fill="#6e7681" font-size="8">₱7,000</text>
+  <text x="72" y="222" text-anchor="end" fill="#6e7681" font-size="8">₱6,000</text>
+  <text x="72" y="260" text-anchor="end" fill="#6e7681" font-size="8">₱5,000</text>
+
+  <!-- Original price reference line (₱7,895) -->
+  <line x1="80" y1="157" x2="820" y2="157" stroke="#f0883e" stroke-width="0.8" stroke-dasharray="6,4" opacity="0.5"/>
+  <text x="824" y="160" fill="#f0883e" font-size="8">₱7,895 original</text>
+
+  <!-- ── DATA POINTS ──────────────────────────────────────
+       Price data (Y axis: 68=₱9.5k, 290=₱4.5k → range 5000, scale=44.4px/₱1k)
+       Mar 7:  ₱7,799 → y = 68 + (9500-7799)/5000 * 222 = 68 + 75.6 = 144
+       Mar 8:  ₱7,799 → y = 144
+       Mar 9:  ₱7,299 → y = 68 + 97.7 = 166
+       Mar 10: ₱7,299 → y = 166
+       Mar 11: ₱6,999 → y = 68 + 111.0 = 179
+       Mar 12: ₱7,299 → y = 166 (bounce)
+       Mar 13: ₱7,499 → y = 68 + 89 = 157
+       Mar 14: ₱6,499 → y = 68 + 133.2 = 201
+       Mar 15: ₱5,999 → y = 68 + 155.5 = 224 (new low)
+       Mar 16: ₱5,999 → y = 224
+       Mar 17: ₱4,999 → y = 68 + 199.9 = 268
+       Mar 18: ₱4,999 → y = 268
+       Mar 19: ₱3,999 → y = 68 + 244 = 312 — below chart, clip to 285
+       Mar 20: ₱3,299 → y = 285 (clipped, final)
+       X spacing: 80 + i*53 for 14 points, i=0..13
+  -->
+
+  <!-- Area fill -->
+  <path d="M80,144 L133,144 L186,166 L239,166 L292,179 L345,166 L398,157 L451,201 L504,224 L557,224 L610,265 L663,265 L716,285 L769,285 L769,290 L80,290 Z"
+        fill="url(#areaGrad)"/>
+
+  <!-- Price line -->
+  <polyline
+    points="80,144 133,144 186,166 239,166 292,179 345,166 398,157 451,201 504,224 557,224 610,265 663,265 716,285 769,285"
+    fill="none"
+    stroke="url(#lineGrad)"
+    stroke-width="2.5"
+    stroke-linejoin="round"
+    stroke-linecap="round"/>
+
+  <!-- Data point dots (standard) -->
+  <circle cx="80"  cy="144" r="3" fill="#58a6ff"/>
+  <circle cx="133" cy="144" r="3" fill="#58a6ff"/>
+  <circle cx="239" cy="166" r="3" fill="#58a6ff"/>
+  <circle cx="345" cy="166" r="3" fill="#58a6ff"/>
+  <circle cx="398" cy="157" r="3" fill="#58a6ff"/>
+  <circle cx="557" cy="224" r="3" fill="#58a6ff"/>
+  <circle cx="663" cy="265" r="3" fill="#58a6ff"/>
+
+  <!-- Drop events (LAG-detected, highlighted red) -->
+  <circle cx="186" cy="166" r="5.5" fill="#f85149" filter="url(#dotGlow)"/>
+  <circle cx="292" cy="179" r="5.5" fill="#f85149" filter="url(#dotGlow)"/>
+  <circle cx="451" cy="201" r="5.5" fill="#f85149" filter="url(#dotGlow)"/>
+  <circle cx="610" cy="265" r="5.5" fill="#f85149" filter="url(#dotGlow)"/>
+  <circle cx="716" cy="285" r="5.5" fill="#f85149" filter="url(#dotGlow)"/>
+
+  <!-- New low event (green) -->
+  <circle cx="504" cy="224" r="6" fill="#3fb950" filter="url(#dotGlow)"/>
+
+  <!-- Latest point -->
+  <circle cx="769" cy="285" r="5" fill="#ffa657" filter="url(#dotGlow)"/>
+
+  <!-- ── ANNOTATIONS ─────────────────────────────────────── -->
+  <!-- Mar 9 drop callout -->
+  <line x1="186" y1="160" x2="186" y2="138" stroke="#f85149" stroke-width="1" stroke-dasharray="3,2" opacity="0.7"/>
+  <rect x="148" y="118" width="76" height="20" rx="4" fill="#2a1010" stroke="#f85149" stroke-width="0.8"/>
+  <text x="186" y="131" text-anchor="middle" fill="#f85149" font-size="8">-₱500 · -6.4%</text>
+
+  <!-- Mar 14 drop callout -->
+  <line x1="451" y1="195" x2="451" y2="168" stroke="#f85149" stroke-width="1" stroke-dasharray="3,2" opacity="0.7"/>
+  <rect x="413" y="148" width="76" height="20" rx="4" fill="#2a1010" stroke="#f85149" stroke-width="0.8"/>
+  <text x="451" y="161" text-anchor="middle" fill="#f85149" font-size="8">-₱800 · -11%</text>
+
+  <!-- Mar 15 new low callout -->
+  <line x1="504" y1="218" x2="504" y2="193" stroke="#3fb950" stroke-width="1" stroke-dasharray="3,2" opacity="0.8"/>
+  <rect x="466" y="173" width="76" height="20" rx="4" fill="#0a1f14" stroke="#3fb950" stroke-width="0.8"/>
+  <text x="504" y="186" text-anchor="middle" fill="#3fb950" font-size="8">new low ₱5,999</text>
+
+  <!-- Mar 20 current callout -->
+  <line x1="769" y1="278" x2="769" y2="252" stroke="#ffa657" stroke-width="1" stroke-dasharray="3,2" opacity="0.8"/>
+  <rect x="723" y="232" width="94" height="20" rx="4" fill="#1f1000" stroke="#ffa657" stroke-width="0.8"/>
+  <text x="769" y="245" text-anchor="middle" fill="#ffa657" font-size="8">₱3,299 · -58% off</text>
+
+  <!-- ── X AXIS LABELS ──────────────────────────────────── -->
+  <text x="80"  y="303" text-anchor="middle" fill="#6e7681" font-size="7.5">Mar 7</text>
+  <text x="133" y="303" text-anchor="middle" fill="#6e7681" font-size="7.5">Mar 8</text>
+  <text x="186" y="303" text-anchor="middle" fill="#f85149" font-size="7.5">Mar 9</text>
+  <text x="239" y="303" text-anchor="middle" fill="#6e7681" font-size="7.5">Mar 10</text>
+  <text x="292" y="303" text-anchor="middle" fill="#f85149" font-size="7.5">Mar 11</text>
+  <text x="345" y="303" text-anchor="middle" fill="#6e7681" font-size="7.5">Mar 12</text>
+  <text x="398" y="303" text-anchor="middle" fill="#6e7681" font-size="7.5">Mar 13</text>
+  <text x="451" y="303" text-anchor="middle" fill="#f85149" font-size="7.5">Mar 14</text>
+  <text x="504" y="303" text-anchor="middle" fill="#3fb950" font-size="7.5">Mar 15</text>
+  <text x="557" y="303" text-anchor="middle" fill="#6e7681" font-size="7.5">Mar 16</text>
+  <text x="610" y="303" text-anchor="middle" fill="#f85149" font-size="7.5">Mar 17</text>
+  <text x="663" y="303" text-anchor="middle" fill="#6e7681" font-size="7.5">Mar 18</text>
+  <text x="716" y="303" text-anchor="middle" fill="#f85149" font-size="7.5">Mar 19</text>
+  <text x="769" y="303" text-anchor="middle" fill="#ffa657" font-size="7.5">Mar 20</text>
+
+  <!-- ── STATS PANEL ────────────────────────────────────── -->
+  <line x1="40" y1="316" x2="820" y2="316" stroke="#21262d" stroke-width="1"/>
+
+  <rect x="60"  y="324" width="116" height="42" rx="6" fill="#0d1117" stroke="#21262d" stroke-width="1"/>
+  <text x="118" y="338" text-anchor="middle" fill="#7d8590" font-size="8">14-day high</text>
+  <text x="118" y="356" text-anchor="middle" fill="#e6edf3" font-size="12" font-weight="700">₱7,799</text>
+
+  <rect x="190" y="324" width="116" height="42" rx="6" fill="#0a1f14" stroke="#1b4332" stroke-width="1"/>
+  <text x="248" y="338" text-anchor="middle" fill="#7d8590" font-size="8">14-day low</text>
+  <text x="248" y="356" text-anchor="middle" fill="#3fb950" font-size="12" font-weight="700">₱3,299</text>
+
+  <rect x="320" y="324" width="116" height="42" rx="6" fill="#0d1117" stroke="#21262d" stroke-width="1"/>
+  <text x="378" y="338" text-anchor="middle" fill="#7d8590" font-size="8">total drops</text>
+  <text x="378" y="356" text-anchor="middle" fill="#f85149" font-size="12" font-weight="700">5 events</text>
+
+  <rect x="450" y="324" width="116" height="42" rx="6" fill="#1f1000" stroke="#7a4a1e" stroke-width="1.5"/>
+  <text x="508" y="338" text-anchor="middle" fill="#7d8590" font-size="8">current discount</text>
+  <text x="508" y="356" text-anchor="middle" fill="#ffa657" font-size="12" font-weight="700">-58.2%</text>
+
+  <rect x="580" y="324" width="116" height="42" rx="6" fill="#0d1117" stroke="#21262d" stroke-width="1"/>
+  <text x="638" y="338" text-anchor="middle" fill="#7d8590" font-size="8">avg rating</text>
+  <text x="638" y="356" text-anchor="middle" fill="#e3b341" font-size="12" font-weight="700">★ 4.7</text>
+
+  <rect x="710" y="324" width="116" height="42" rx="6" fill="#0d1117" stroke="#21262d" stroke-width="1"/>
+  <text x="768" y="338" text-anchor="middle" fill="#7d8590" font-size="8">review count</text>
+  <text x="768" y="356" text-anchor="middle" fill="#58a6ff" font-size="12" font-weight="700">1,248</text>
+</svg>

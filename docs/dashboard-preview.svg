@@ -1,0 +1,156 @@
+<svg viewBox="0 0 860 460" xmlns="http://www.w3.org/2000/svg" font-family="ui-monospace, 'Cascadia Code', 'Fira Code', monospace">
+  <defs>
+    <linearGradient id="dbg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0d1117"/>
+      <stop offset="100%" stop-color="#161b22"/>
+    </linearGradient>
+    <linearGradient id="barBlue" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1f6feb"/>
+      <stop offset="100%" stop-color="#0d419d"/>
+    </linearGradient>
+    <linearGradient id="barOrange" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#e3b341"/>
+      <stop offset="100%" stop-color="#9e6a03"/>
+    </linearGradient>
+    <linearGradient id="barGreen" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#238636"/>
+      <stop offset="100%" stop-color="#0f5323"/>
+    </linearGradient>
+    <linearGradient id="barPurple" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#8250df"/>
+      <stop offset="100%" stop-color="#512a97"/>
+    </linearGradient>
+    <linearGradient id="barRed" x1="0" y1="0" x-2="0" y2="1">
+      <stop offset="0%" stop-color="#f85149"/>
+      <stop offset="100%" stop-color="#b62324"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="860" height="460" fill="url(#dbg)" rx="12"/>
+  <rect width="860" height="460" fill="none" stroke="#30363d" stroke-width="1" rx="12"/>
+
+  <!-- Header -->
+  <text x="430" y="28" text-anchor="middle" fill="#e6edf3" font-size="13" font-weight="700">Category Summary Dashboard</text>
+  <text x="430" y="46" text-anchor="middle" fill="#7d8590" font-size="10">marts.category_summary · Snapshot: 2026-03-20 · 5 categories · 847 unique items</text>
+  <line x1="40" y1="56" x2="820" y2="56" stroke="#21262d" stroke-width="1"/>
+
+  <!-- ── KPI CARDS ROW ─────────────────────────────────── -->
+  <!-- Card 1: Laptops -->
+  <rect x="40" y="68" width="148" height="90" rx="8" fill="#0d1b2e" stroke="#264f78" stroke-width="1"/>
+  <text x="114" y="88" text-anchor="middle" fill="#79c0ff" font-size="9" font-weight="600">💻 LAPTOPS</text>
+  <text x="114" y="112" text-anchor="middle" fill="#e6edf3" font-size="20" font-weight="700">₱28,450</text>
+  <text x="114" y="128" text-anchor="middle" fill="#7d8590" font-size="8.5">avg price · 142 items</text>
+  <text x="114" y="145" text-anchor="middle" fill="#3fb950" font-size="9">▲ +12% reviews this week</text>
+
+  <!-- Card 2: Smartphones -->
+  <rect x="198" y="68" width="148" height="90" rx="8" fill="#0d1b2e" stroke="#264f78" stroke-width="1"/>
+  <text x="272" y="88" text-anchor="middle" fill="#79c0ff" font-size="9" font-weight="600">📱 SMARTPHONES</text>
+  <text x="272" y="112" text-anchor="middle" fill="#e6edf3" font-size="20" font-weight="700">₱14,299</text>
+  <text x="272" y="128" text-anchor="middle" fill="#7d8590" font-size="8.5">avg price · 231 items</text>
+  <text x="272" y="145" text-anchor="middle" fill="#f85149" font-size="9">▼ -5% avg price today</text>
+
+  <!-- Card 3: Headphones -->
+  <rect x="356" y="68" width="148" height="90" rx="8" fill="#0d1b2e" stroke="#264f78" stroke-width="1"/>
+  <text x="430" y="88" text-anchor="middle" fill="#79c0ff" font-size="9" font-weight="600">🎧 HEADPHONES</text>
+  <text x="430" y="112" text-anchor="middle" fill="#e6edf3" font-size="20" font-weight="700">₱3,840</text>
+  <text x="430" y="128" text-anchor="middle" fill="#7d8590" font-size="8.5">avg price · 198 items</text>
+  <text x="430" y="145" text-anchor="middle" fill="#e3b341" font-size="9">● 34 on deep discount</text>
+
+  <!-- Card 4: Gaming Monitors -->
+  <rect x="514" y="68" width="148" height="90" rx="8" fill="#0d1b2e" stroke="#264f78" stroke-width="1"/>
+  <text x="588" y="88" text-anchor="middle" fill="#79c0ff" font-size="9" font-weight="600">🖥 GAMING MONITORS</text>
+  <text x="588" y="112" text-anchor="middle" fill="#e6edf3" font-size="20" font-weight="700">₱18,950</text>
+  <text x="588" y="128" text-anchor="middle" fill="#7d8590" font-size="8.5">avg price · 156 items</text>
+  <text x="588" y="145" text-anchor="middle" fill="#3fb950" font-size="9">▲ 4.3 avg rating</text>
+
+  <!-- Card 5: Keyboards -->
+  <rect x="672" y="68" width="148" height="90" rx="8" fill="#1f1000" stroke="#7a4a1e" stroke-width="1.5"/>
+  <text x="746" y="88" text-anchor="middle" fill="#ffa657" font-size="9" font-weight="600">⌨ KEYBOARDS</text>
+  <text x="746" y="106" text-anchor="middle" fill="#ffa657" font-size="9">✨ daily_deals</text>
+  <text x="746" y="126" text-anchor="middle" fill="#e6edf3" font-size="18" font-weight="700">₱5,120</text>
+  <text x="746" y="142" text-anchor="middle" fill="#7d8590" font-size="8.5">avg price · 120 items</text>
+  <text x="746" y="155" text-anchor="middle" fill="#ffa657" font-size="9">8 fresh drops today</text>
+
+  <!-- ── MEDIAN PRICE BAR CHART ─────────────────────────── -->
+  <text x="60" y="186" fill="#e6edf3" font-size="11" font-weight="600">Median Price by Category (PHP)</text>
+  <text x="60" y="200" fill="#7d8590" font-size="9">{{ median() }} macro · ANSI-portable DuckDB + PostgreSQL</text>
+
+  <!-- Chart area -->
+  <rect x="60" y="210" width="740" height="120" rx="4" fill="#0d1117" stroke="#21262d" stroke-width="1"/>
+
+  <!-- Grid lines -->
+  <line x1="60" y1="250" x2="800" y2="250" stroke="#21262d" stroke-width="0.8"/>
+  <line x1="60" y1="275" x2="800" y2="275" stroke="#21262d" stroke-width="0.8"/>
+  <line x1="60" y1="300" x2="800" y2="300" stroke="#21262d" stroke-width="0.8"/>
+
+  <!-- Y axis labels -->
+  <text x="820" y="253" fill="#7d8590" font-size="8">₱30k</text>
+  <text x="820" y="278" fill="#7d8590" font-size="8">₱15k</text>
+  <text x="820" y="303" fill="#7d8590" font-size="8">₱5k</text>
+
+  <!-- Bars (scaled: max ₱32k = 100px height) -->
+  <!-- Laptops: ₱26,200 median → ~82px -->
+  <rect x="100" y="248" width="64" height="82" rx="3" fill="url(#barBlue)" opacity="0.85"/>
+  <text x="132" y="244" text-anchor="middle" fill="#79c0ff" font-size="8" font-weight="600">₱26,200</text>
+  <text x="132" y="324" text-anchor="middle" fill="#7d8590" font-size="8">Laptops</text>
+
+  <!-- Smartphones: ₱12,500 → ~39px -->
+  <rect x="230" y="291" width="64" height="39" rx="3" fill="url(#barPurple)" opacity="0.85"/>
+  <text x="262" y="287" text-anchor="middle" fill="#d2a8ff" font-size="8" font-weight="600">₱12,500</text>
+  <text x="262" y="324" text-anchor="middle" fill="#7d8590" font-size="8">Smartphones</text>
+
+  <!-- Gaming monitors: ₱17,800 → ~56px -->
+  <rect x="360" y="274" width="64" height="56" rx="3" fill="url(#barOrange)" opacity="0.85"/>
+  <text x="392" y="270" text-anchor="middle" fill="#e3b341" font-size="8" font-weight="600">₱17,800</text>
+  <text x="392" y="324" text-anchor="middle" fill="#7d8590" font-size="8">Monitors</text>
+
+  <!-- Keyboards: ₱4,290 → ~13px -->
+  <rect x="490" y="317" width="64" height="13" rx="3" fill="url(#barGreen)" opacity="0.85"/>
+  <text x="522" y="313" text-anchor="middle" fill="#3fb950" font-size="8" font-weight="600">₱4,290</text>
+  <text x="522" y="324" text-anchor="middle" fill="#ffa657" font-size="8" font-weight="600">Keyboards ✨</text>
+
+  <!-- Headphones: ₱2,990 → ~9px -->
+  <rect x="620" y="321" width="64" height="9" rx="3" fill="url(#barRed)" opacity="0.85"/>
+  <text x="652" y="317" text-anchor="middle" fill="#f85149" font-size="8" font-weight="600">₱2,990</text>
+  <text x="652" y="324" text-anchor="middle" fill="#7d8590" font-size="8">Headphones</text>
+
+  <!-- ── DAILY DEALS PREVIEW ────────────────────────────── -->
+  <text x="60" y="358" fill="#ffa657" font-size="11" font-weight="600">✨ daily_deals — Top 3 Fresh Drops Today</text>
+  <text x="60" y="372" fill="#7d8590" font-size="9">marts.daily_deals · ≥30% discount · ≥50 reviews · is_fresh_drop = true</text>
+
+  <!-- Table header -->
+  <rect x="60" y="380" width="740" height="22" rx="4" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+  <text x="72" y="395" fill="#7d8590" font-size="8.5" font-weight="600">RANK</text>
+  <text x="120" y="395" fill="#7d8590" font-size="8.5" font-weight="600">PRODUCT</text>
+  <text x="450" y="395" fill="#7d8590" font-size="8.5" font-weight="600">CATEGORY</text>
+  <text x="570" y="395" fill="#7d8590" font-size="8.5" font-weight="600">PRICE</text>
+  <text x="650" y="395" fill="#7d8590" font-size="8.5" font-weight="600">DISCOUNT</text>
+  <text x="740" y="395" fill="#7d8590" font-size="8.5" font-weight="600">FRESH DROP</text>
+
+  <!-- Row 1 -->
+  <rect x="60" y="402" width="740" height="18" rx="2" fill="#0d1117"/>
+  <text x="78" y="415" text-anchor="middle" fill="#ffa657" font-size="9" font-weight="700">#1</text>
+  <text x="120" y="415" fill="#e6edf3" font-size="8.5">Logitech MX Keys Advanced Keyboard</text>
+  <text x="450" y="415" fill="#7d8590" font-size="8.5">Keyboards</text>
+  <text x="570" y="415" fill="#3fb950" font-size="8.5" font-weight="600">₱3,299</text>
+  <text x="650" y="415" fill="#f85149" font-size="9" font-weight="700">-58%</text>
+  <text x="748" y="415" text-anchor="middle" fill="#ffa657" font-size="9">✓</text>
+
+  <!-- Row 2 -->
+  <rect x="60" y="420" width="740" height="18" rx="2" fill="#161b22"/>
+  <text x="78" y="433" text-anchor="middle" fill="#e3b341" font-size="9" font-weight="700">#2</text>
+  <text x="120" y="433" fill="#e6edf3" font-size="8.5">Sony WH-1000XM5 Noise Cancelling Headphones</text>
+  <text x="450" y="433" fill="#7d8590" font-size="8.5">Headphones</text>
+  <text x="570" y="433" fill="#3fb950" font-size="8.5" font-weight="600">₱8,999</text>
+  <text x="650" y="433" fill="#f85149" font-size="9" font-weight="700">-44%</text>
+  <text x="748" y="433" text-anchor="middle" fill="#ffa657" font-size="9">✓</text>
+
+  <!-- Row 3 -->
+  <rect x="60" y="438" width="740" height="18" rx="2" fill="#0d1117"/>
+  <text x="78" y="451" text-anchor="middle" fill="#8b949e" font-size="9" font-weight="700">#3</text>
+  <text x="120" y="451" fill="#e6edf3" font-size="8.5">Realme C67 6GB+128GB Smartphone</text>
+  <text x="450" y="451" fill="#7d8590" font-size="8.5">Smartphones</text>
+  <text x="570" y="451" fill="#3fb950" font-size="8.5" font-weight="600">₱6,299</text>
+  <text x="650" y="451" fill="#e3b341" font-size="9" font-weight="700">-38%</text>
+  <text x="748" y="451" text-anchor="middle" fill="#7d8590" font-size="9">—</text>
+</svg>
