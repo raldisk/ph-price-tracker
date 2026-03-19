@@ -267,12 +267,6 @@ The scheduled pipeline runs daily at 08:00 UTC (16:00 PHT), caches the DuckDB fi
 
 ---
 
-## Prompts
-
-The `prompts/` directory contains structured Claude prompt templates for extending this project — adding new dbt models, new scrapers, CI debugging, and full new project scaffolding. See [`prompts/001-prompt-data-engineer-pipeline.md`](prompts/001-prompt-data-engineer-pipeline.md).
-
----
-
 ## License
 
 MIT
