@@ -1,0 +1,22 @@
+ph_price_tracker:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: "{{ env_var('TRACKER_DB_PATH', '../data/prices.duckdb') }}"
+      threads: 4
+
+    ci:
+      type: duckdb
+      path: ":memory:"
+      threads: 2
+
+    ci-postgres:
+      type: postgres
+      host: "{{ env_var('PGHOST', 'localhost') }}"
+      port: "{{ env_var('PGPORT', '5432') | int }}"
+      user: "{{ env_var('PGUSER', 'tracker') }}"
+      pass: "{{ env_var('PGPASSWORD', 'tracker') }}"
+      dbname: "{{ env_var('PGDATABASE', 'tracker') }}"
+      schema: staging
+      threads: 2

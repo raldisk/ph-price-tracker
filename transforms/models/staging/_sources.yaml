@@ -1,0 +1,30 @@
+version: 2
+
+sources:
+  - name: raw
+    description: "Raw price snapshots loaded by the ingestion layer."
+    schema: raw
+    tables:
+      - name: price_snapshots
+        description: "Append-only table of every scraped product listing."
+        columns:
+          - name: item_id
+            description: "Lazada item identifier."
+            tests:
+              - not_null
+          - name: name
+            description: "Product display name."
+            tests:
+              - not_null
+          - name: current_price
+            description: "Scraped sale price in Philippine Peso."
+            tests:
+              - not_null
+          - name: scraped_at
+            description: "UTC timestamp of when this snapshot was taken."
+            tests:
+              - not_null
+          - name: keyword
+            description: "Search keyword that surfaced this item."
+            tests:
+              - not_null
