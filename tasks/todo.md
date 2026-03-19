@@ -86,6 +86,14 @@ Apply 001 prompt template structure. Export clean zip with SVGs for GitHub READM
 
 ---
 
+## Phase 9 — Post-Push Fixes ✅
+- [x] Fix CI: `uv.lock` placeholder causing lint job to fail after 7s — removed from repo, added to `.gitignore`
+- [x] Add `LICENSE` file (MIT, 2026, raldisk)
+- [x] Remove `## Prompts` section from `README.md`
+- [x] Rebuilt ZIP with all three changes
+
+---
+
 ## Remaining (future sessions)
 - [ ] Project 2: OFW remittance pipeline (ph-remittance-tracker)
 - [ ] Project 3: PSA data pipeline (ph-psa-tracker)

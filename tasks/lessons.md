@@ -200,4 +200,27 @@ A strict-mode mypy failure in CI means every subsequent push is untrustworthy.
 
 ---
 
-*Last updated: 2026-03-20 · Session: ph-price-tracker v0.2.0 code review fixes*
+## Lesson 011 — Placeholder `uv.lock` Breaks CI; Never Commit It
+
+**What happened:** A placeholder `uv.lock` was committed to the repo with only a comment
+and `version = 1` — no real package entries. When GitHub Actions ran `uv sync --extra dev`,
+uv read the invalid lockfile and failed within 7 seconds. All downstream CI jobs (test,
+dbt-validate) were skipped as a result.
+
+**Why it's a trap:** The intent was to "make CI pass `--frozen` validation on first run" —
+but CI wasn't using `--frozen` at all. The placeholder solved a non-existent problem while
+creating a real one.
+
+**Fix applied:** Added `uv.lock` to `.gitignore`. CI now runs `uv sync --extra dev` without
+a lockfile present — uv resolves and generates it fresh on each run.
+
+**Rule going forward:** Never commit a placeholder `uv.lock`. Two valid approaches only:
+1. **Don't commit it** — add to `.gitignore`, let CI generate fresh (simpler, this project's choice)
+2. **Commit the real one** — run `uv lock` locally first, commit the fully resolved lockfile
+
+A half-committed lockfile is worse than none at all. If you're not running `uv lock` locally
+first, add `uv.lock` to `.gitignore`.
+
+---
+
+*Last updated: 2026-03-20 · Session: ph-price-tracker post-push fixes*
